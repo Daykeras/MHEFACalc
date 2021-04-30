@@ -170,4 +170,4 @@ build2 = obj({
 print(calcefa.compute_crit_chance(0,3,7,0,.5))
 print(calcefa.compute_display_raw(188,7,.5, 3, 2))
 print(calcefa.computer_crit_raw(.5, 3))
-print(calcefa.computer_total_raw(build2))
+print(calcefa.compute_total_raw(build2))

@@ -4,170 +4,79 @@ class obj(object):
     def __init__(self, d):
         self.__dict__ = d
 
-finsword = obj({
-    "dist": [100, 70, 50, 50, 30, 50],
-    "base": 300,
-    "raw": 216,
-    "crit": 0.15,
-    "ele": 0,
-    "silkbind_boost": False,
+# base raw and affinity are after ramp up
+# affinity is percentage as decimal. negative allowed
+# sharpness_level =
+# # 0: Red
+# 1: Orange
+# 2: Yellow
+# 3: Green
+# 4: Blue
+# 5: White
+# 6: Purple
+
+Dark_of_Night_Attack_Boost_III = obj({
+    "base_raw" : 188,
+    "base_affinity" : .35,
+    "sharpness_level" : 5,
+    "base_element" : 0
 })
 
-narga = obj({
-    "dist": [70, 40, 100, 90, 70, 30],
-    "base": 400,
-    "raw": 188,
-    "crit": 0.40,
-    "ele": 0,
-    "silkbind_boost": False,
+Abominable_Great_Sword_Affinity_Boost_II = obj({
+    "base_raw" : 230,
+    "base_affinity" : -.09,
+    "sharpness_level" : 4,
+    "base_element" : 20
 })
 
-tigrine = obj({
-    "dist": [50, 40, 120, 130, 40, 20],
-    "base": 400,
-    "raw": 230,
-    "crit": -0.20,
-    "ele": 0,
-    "silkbind_boost": True,
+Tigrex_Great_Sword_Attack_Boost_III = obj({
+    "base_raw" : 218,
+    "base_affinity" : -.15,
+    "sharpness_level" : 5,
+    "base_element" : 0 
 })
 
-rimeblossom = obj({
-    "dist": [70, 70, 70, 50, 70, 20],
-    "base": 300,
-    "raw": 210,
-    "crit": 0,
-    "ele": 27,
-    "silkbind_boost": True,
-})
-
-goss_atk = obj({
-    "dist": [100, 30, 100, 40, 70, 10],
-    "base": 300,
-    "raw": 234,
-    "crit": -0.15,
-    "ele": 20,
-    "silkbind_boost": False,
-})
-
-goss_aff = obj({
-    "dist": [100, 30, 100, 40, 70, 10],
-    "base": 300,
-    "raw": 230,
-    "crit": -0.09,
-    "ele": 20,
-    "silkbind_boost": False,
-})
-
-narga_gs = obj({
-    "dist": [70, 40, 120, 90, 60, 20],
-    "base": 400,
-    "raw": 188,
-    "crit": 0.35,
-    "ele": 0,
-    "silkbind_boost": False,
-})
-
-tigrex_gs_atk = obj({
-    "dist": [50, 40, 120, 120, 50, 20],
-    "base": 400,
-    "raw": 218,
-    "crit": -0.15,
-    "ele": 0,
-    "silkbind_boost": False,
-})
-
-tigrex_gs_aff = obj({
-    "dist": [50, 40, 120, 120, 50, 20],
-    "base": 400,
-    "raw": 210,
-    "crit": -0.09,
-    "ele": 0,
-    "silkbind_boost": False,
-})
-
-rampage_gs = obj({
-    "dist": [10, 10, 10, 20, 30, 50],
-    "base": 80,
-    "raw": 200,
-    "crit": 0.20,
-    "ele": 0,
-    "silkbind_boost": False,
-})
-
-rampage_gs_atk = obj({
-    "dist": [10, 10, 10, 20, 30, 50],
-    "base": 80,
-    "raw": 230,
-    "crit": -0.30,
-    "ele": 0,
-    "silkbind_boost": False,
-})
-
-rampage_ls = obj({
-    "dist": [10, 10, 10, 20, 30, 50],
-    "base": 80,
-    "raw": 200,
-    "crit": 0.20,
-    "ele": 0,
-    "silkbind_boost": False,
-})
-
-params_ls1 = obj({
-    "mMV": 0.836,
-    "mEM": 1.96,
-    "mHZV": 0.524,
-    "mEZV": 0.202,
-    "SBmMV": 0.869,
-    "SBmEM": 2.01,
-    "hits_to_sharpen": 39,
-})
-
-params_gs1 = obj({
-    "mMV": 1.04,
-    "mEM": 1.57,
-    "mHZV": 0.536,
-    "mEZV": 0.224,
-    "SBmMV": 1.04,
-    "SBmEM": 1.57,
-    "hits_to_sharpen": 20,
-})
 
 # example usage:
 
-build1 = obj({
-    "weapon": narga_gs,
-    "crit_eye": 3,
-    "crit_boost": 3,
-    "wex": 3,
-    "max_might": 0,
-    "attack_boost": 7,
-    "handicraft": 0,
-    "razor_sharp": 0,
-    "masters_touch": 0,
-    "crit_element": 0,
-})
-
 # example usage test:
-
-# has_charm_talon = 0: none, 1: charm, 2: talon, 3: both
-# has_attack_buffs = 0: none, 1: booster, 2: booster + megadrug + seed + powder
-build2 = obj({
-    "base_raw" : 188,
+build1 = obj({
     "attack_boost_level" : 7,
-    "power_sheathe_uptime" : .5,
-    "has_charm_talon" : 3,
-    "has_attack_buffs" : 2,
-    "base_affinity" : .35,
     "weakness_exploit_level" : 3,
     "critical_eye_level" : 3,
     "latent_power_level" : 0,
+    "critical_boost_level" : 3,
+    "element_attack_level" : 0,
+    "critical_element_level" : 0
+
+})
+
+build2 = obj({
+    "attack_boost_level" : 4,
+    "weakness_exploit_level" : 3,
+    "critical_eye_level" : 7,
+    "latent_power_level" : 0,
+    "critical_boost_level" : 3,
+    "element_attack_level" : 0,
+    "critical_element_level" : 0
+})
+
+# has_charm_talon = 0: none, 1: charm, 2: talon, 3: both
+# has_attack_buffs = 0: none, 1: booster, 2: booster + megadrug + seed + powder
+# uptime is a percentage as a decimal
+params1 = obj({
+    "power_sheathe_uptime" : .5,
+    "has_charm_talon" : 3,
+    "has_attack_buffs" : 2,
     "latent_power_uptime" : .5,
-    "critical_boost_level" : 3
 })
 
 #print(mhefacalc.evaluate_build(build1, params_ls1))
 
-print(calcefa.compute_crit_chance(0,3,7,0,.5))
-print(calcefa.compute_display_raw(188,7,.5, 3, 2))
-print(calcefa.computer_crit_raw(.5, 3))
-print(calcefa.compute_total_raw(build2))
+print(calcefa.compute_total_raw(Dark_of_Night_Attack_Boost_III,build1,params1))
+
+print(calcefa.compute_total_raw(Abominable_Great_Sword_Affinity_Boost_II,build2,params1))
+
+print(calcefa.compute_total_raw(Tigrex_Great_Sword_Attack_Boost_III,build2,params1))
+
+print(calcefa.compute_total_ele(Abominable_Great_Sword_Affinity_Boost_II,build2,params1))

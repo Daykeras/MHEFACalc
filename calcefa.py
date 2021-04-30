@@ -11,13 +11,13 @@ def compute_display_raw(
                         power_sheathe_uptime,                     
                         has_charm_talon,
                         has_attack_buffs,
-                        ):                    
-  display_raw = (math.floor(
-    base_raw * atk_boost_skill[atk_boost_lvl][1] *
-    (power_sheathe_uptime * power_sheathe_raw[0] + 1)) +
+                        ):                                       
+  display_raw =(math.floor(
+    base_raw * (1 + atk_boost_skill[atk_boost_lvl][1]) *
+    (power_sheathe_uptime * power_sheathe_raw[0] + 1) +
     atk_boost_skill[atk_boost_lvl][0] +
     charm_talon[has_charm_talon] +
-    attack_buffs[has_attack_buffs]
+    attack_buffs[has_attack_buffs])
   )
   
   return display_raw                    
@@ -45,7 +45,7 @@ def compute_crit_chance(
 
   return crit_chance
 
-def computer_crit_raw(
+def compute_crit_raw(
                       crit_chance,
                       crit_boost_lvl
                       ):
@@ -56,28 +56,72 @@ def computer_crit_raw(
 
   return crit_raw
 
-def compute_total_raw(build):
+def compute_total_raw(weapon,build,params):
   display_raw = compute_display_raw(
-    build.base_raw,
+    weapon.base_raw,
     build.attack_boost_level,
-    build.power_sheathe_uptime,
-    build.has_charm_talon,
-    build.has_attack_buffs
+    params.power_sheathe_uptime,
+    params.has_charm_talon,
+    params.has_attack_buffs
   )
   crit_chance = compute_crit_chance(
-    build.base_affinity,
+    weapon.base_affinity,
     build.weakness_exploit_level,
     build.critical_eye_level,
     build.latent_power_level,
-    build.latent_power_uptime
+    params.latent_power_uptime
   )
-  crit_raw = computer_crit_raw(
-    crit_chance, build.critical_boost_level
+  crit_raw = compute_crit_raw(
+    crit_chance, 
+    build.critical_boost_level
   )
 
-  total_raw = display_raw * crit_raw * sharpness_raw[build.sharpness_level]
+  total_raw = display_raw * crit_raw * sharpness_raw[weapon.sharpness_level]
 
   return total_raw
+
+def compute_display_element(
+                      base_element,
+                      element_atk_lvl
+                      ):
+  ele_attack = (base_element * (1 + element_atk_skill[element_atk_lvl][1]) +
+      element_atk_skill[element_atk_lvl][0])
+
+  return ele_attack
+
+def compute_crit_ele(
+                      crit_chance,
+                      crit_element_lvl
+                      ):
+  if(crit_element_lvl <= 0):
+    return 1
+
+  else:
+    crit_ele = (1 - crit_chance ) + (crit_chance * crit_element_skill[crit_element_lvl])
+
+  return crit_ele 
+
+def compute_total_ele(weapon,build,params):
+  display_element = compute_display_element(
+    weapon.base_element,
+    build.element_attack_level
+  )
+  crit_chance = compute_crit_chance(
+    weapon.base_affinity,
+    build.weakness_exploit_level,
+    build.critical_eye_level,
+    build.latent_power_level,
+    params.latent_power_uptime
+  )
+  crit_ele = compute_crit_ele(
+    crit_chance,
+    build.critical_element_level
+  )
+
+  total_ele = display_element * crit_ele
+
+  return total_ele
+
 
 # Attack Buffs
 # Assume attack buffs: Might Seed +10, Demon Powder +10, Mega Demondrug +7,
@@ -96,10 +140,10 @@ atk_boost_skill = [
         (3, 0),
         (6, 0),
         (9, 0),
-        (7, 1.05),
-        (8, 1.06),
-        (9, 1.08),
-        (10, 1.10)
+        (7, .05),
+        (8, .06),
+        (9, .08),
+        (10, .10)
 ]
 
 # For Long Sword only

@@ -122,6 +122,43 @@ def compute_total_ele(weapon,build,params):
 
   return total_ele
 
+def compute_total_efa(weapon,build,params):
+  display_raw = compute_display_raw(
+    weapon.base_raw,
+    build.attack_boost_level,
+    params.power_sheathe_uptime,
+    params.has_charm_talon,
+    params.has_attack_buffs
+  )
+  crit_chance = compute_crit_chance(
+    weapon.base_affinity,
+    build.weakness_exploit_level,
+    build.critical_eye_level,
+    build.latent_power_level,
+    params.latent_power_uptime
+  )
+  crit_raw = compute_crit_raw(
+    crit_chance, 
+    build.critical_boost_level
+  )
+  display_element = compute_display_element(
+    weapon.base_element,
+    build.element_attack_level
+  )
+  crit_ele = compute_crit_ele(
+    crit_chance,
+    build.critical_element_level
+  )
+
+
+  total_raw = display_raw * crit_raw * sharpness_raw[weapon.sharpness_level]
+  total_ele = display_element * crit_ele * sharpness_element[weapon.sharpness_level]
+  total_efa = total_raw + (total_ele * params.hit_zone_ratio * 
+    params.elemental_mod_ratio)
+
+  return total_efa
+
+
 
 # Attack Buffs
 # Assume attack buffs: Might Seed +10, Demon Powder +10, Mega Demondrug +7,

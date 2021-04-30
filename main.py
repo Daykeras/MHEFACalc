@@ -57,18 +57,23 @@ build2 = obj({
     "critical_eye_level" : 7,
     "latent_power_level" : 0,
     "critical_boost_level" : 3,
-    "element_attack_level" : 0,
+    "element_attack_level" : 5,
     "critical_element_level" : 0
 })
 
 # has_charm_talon = 0: none, 1: charm, 2: talon, 3: both
 # has_attack_buffs = 0: none, 1: booster, 2: booster + megadrug + seed + powder
 # uptime is a percentage as a decimal
+# hit_zone_ratio is the Elemental HZ / Raw HZ being tested
+# elemental_mod_ratio is Ele MOD/ MV of a given run, or estimate
+# 1.4 is close to the Olay GS Freestyle Rajang WR
 params1 = obj({
     "power_sheathe_uptime" : .5,
     "has_charm_talon" : 3,
     "has_attack_buffs" : 2,
     "latent_power_uptime" : .5,
+    "hit_zone_ratio" : 0,
+    "elemental_mod_ratio" : 1.4
 })
 
 #print(mhefacalc.evaluate_build(build1, params_ls1))
@@ -79,4 +84,4 @@ print(calcefa.compute_total_raw(Abominable_Great_Sword_Affinity_Boost_II,build2,
 
 print(calcefa.compute_total_raw(Tigrex_Great_Sword_Attack_Boost_III,build2,params1))
 
-print(calcefa.compute_total_ele(Abominable_Great_Sword_Affinity_Boost_II,build2,params1))
+print(calcefa.compute_total_efa(Abominable_Great_Sword_Affinity_Boost_II,build2,params1))

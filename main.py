@@ -147,6 +147,27 @@ build1 = obj({
     "crit_element": 0,
 })
 
+# example usage test:
+
+# has_charm_talon = 0: none, 1: charm, 2: talon, 3: both
+# has_attack_buffs = 0: none, 1: booster, 2: booster + megadrug + seed + powder
+build2 = obj({
+    "base_raw" : 188,
+    "attack_boost_level" : 7,
+    "power_sheathe_uptime" : .5,
+    "has_charm_talon" : 3,
+    "has_attack_buffs" : 2,
+    "base_affinity" : .35,
+    "weakness_exploit_level" : 3,
+    "critical_eye_level" : 3,
+    "latent_power_level" : 0,
+    "latent_power_uptime" : .5,
+    "critical_boost_level" : 3
+})
+
 #print(mhefacalc.evaluate_build(build1, params_ls1))
 
 print(calcefa.compute_crit_chance(0,3,7,0,.5))
+print(calcefa.compute_display_raw(188,7,.5, 3, 2))
+print(calcefa.computer_crit_raw(.5, 3))
+print(calcefa.computer_total_raw(build2))

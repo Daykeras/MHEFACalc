@@ -10,17 +10,18 @@ def compute_display_raw(
                         atk_boost_lvl,
                         power_sheathe_uptime,                     
                         has_charm_talon,
-                        flat_attack_buffs,
+                        has_attack_buffs,
                         ):                    
-  display_raw = math.floor(
+  display_raw = (math.floor(
     base_raw * atk_boost_skill[atk_boost_lvl][1] *
-    power_sheathe_uptime * power_sheathe_raw[0] +
+    (power_sheathe_uptime * power_sheathe_raw[0] + 1)) +
     atk_boost_skill[atk_boost_lvl][0] +
-    dict.get(has_charm_talon) +
-    dict.get(flat_attack_buffs)
-  )                    
+    charm_talon[has_charm_talon] +
+    attack_buffs[has_attack_buffs]
+  )
+  
+  return display_raw                    
 
-  return display_raw
 
 def compute_crit_chance(
                         base_affinity,
@@ -44,22 +45,50 @@ def compute_crit_chance(
 
   return crit_chance
 
+def computer_crit_raw(
+                      crit_chance,
+                      crit_boost_lvl
+                      ):
+  if crit_chance < 0:
+    crit_raw = (1 + crit_chance) + (- crit_chance * .75)
+  else:
+    crit_raw = (1 - crit_chance ) + (crit_chance * crit_boost_skill[crit_boost_lvl])
+
+  return crit_raw
+
+def compute_total_raw(build):
+  display_raw = compute_display_raw(
+    build.base_raw,
+    build.attack_boost_level,
+    build.power_sheathe_uptime,
+    build.has_charm_talon,
+    build.has_attack_buffs
+  )
+  crit_chance = compute_crit_chance(
+    build.base_affinity,
+    build.weakness_exploit_level,
+    build.critical_eye_level,
+    build.latent_power_level,
+    build.latent_power_uptime
+  )
+  crit_raw = computer_crit_raw(
+    crit_chance, build.critical_boost_level
+  )
+
+  total_raw = display_raw * crit_raw * sharpness_raw[build.sharpness_level]
+
+  return total_raw
+
 # Attack Buffs
 # Assume attack buffs: Might Seed +10, Demon Powder +10, Mega Demondrug +7,
 #                      Booster +9
 
-flat_attack_buffs = {
-                    'None' : 1,
-                    'Booster' : 9,
-                    'Full' : 36
-                    }
+# 0 is no buffs, 1 is Booster, 2 is Booster + MegaDrug + Powder + Seed
+attack_buffs = [0, 9, 36]
 
-has_charm_talon = {
-                  'Neither': 0,
-                  'Charm' : 6,
-                  'Talon' : 9,
-                  'Both': 15
-                  }
+# 0 is no charm or talon, 1 is charm, 2 is talon, and 3 is both
+charm_talon = [0, 6, 9, 15]
+
 
 # Attack Boost 0 - 7
 atk_boost_skill = [
@@ -67,17 +96,17 @@ atk_boost_skill = [
         (3, 0),
         (6, 0),
         (9, 0),
-        (7, 0.05),
-        (8, 0.06),
-        (9, 0.08),
-        (10, 0.10)
+        (7, 1.05),
+        (8, 1.06),
+        (9, 1.08),
+        (10, 1.10)
 ]
 
 # For Long Sword only
 ls_spirit_raw = [1.0, 1.05, 1.1, 1.2];
 
 # For GS only
-power_sheathe_raw = [1.1]
+power_sheathe_raw = [.1]
 
 # 0: Red
 # 1: Orange
@@ -91,7 +120,7 @@ sharpness_element = [0.25, 0.50, 0.75, 1.00, 1.0625, 1.15, 1.25]
 
 # Critical boost
 # CB 0 - 3
-crit_boost_skill = [0.25, 0.30, 0.35, 0.40]
+crit_boost_skill = [1.25, 1.30, 1.35, 1.40]
 
 # Critical Eye
 # CE 0-7

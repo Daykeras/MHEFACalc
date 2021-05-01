@@ -54,7 +54,7 @@ build1 = obj({
 build2 = obj({
     "attack_boost_level" : 4,
     "weakness_exploit_level" : 3,
-    "critical_eye_level" : 7,
+    "critical_eye_level" : 6,
     "latent_power_level" : 0,
     "critical_boost_level" : 3,
     "element_attack_level" : 5,
@@ -64,9 +64,8 @@ build2 = obj({
 build3 = obj({
     "attack_boost_level" : 4,
     "weakness_exploit_level" : 3,
-    "critical_eye_level" : 1,
+    "critical_eye_level" : 7,
     "latent_power_level" : 0,
-    "maximum_might_level": 0,
     "critical_boost_level" : 3,
     "element_attack_level" : 5,
     "critical_element_level" : 0
@@ -79,25 +78,22 @@ build3 = obj({
 # elemental_mod_ratio is Ele MOD/ MV of a given run, or estimate
 # 1.4 is close to the Olay GS Freestyle Rajang WR
 params1 = obj({
-    "power_sheathe_uptime" : 0,
+    "power_sheathe_uptime" : 0.4,
     "has_charm_talon" : 3,
     "has_attack_buffs" : 2,
     "latent_power_uptime" : .5,
     "maximum_might_uptime" : 0,
-    "weak_spot_uptime" : 0,
-    "hit_zone_ratio" : 0,
+    "weak_spot_uptime" : 1,
+    "hit_zone_ratio" : 0.0,
     "elemental_mod_ratio" : 1.4
 })
 
 #print(mhefacalc.evaluate_build(build1, params_ls1))
 
-print(calcefa.compute_total_raw(Dark_of_Night_Attack_Boost_III,build1,params1))
-print(calcefa.compute_total_raw(Dark_of_Night_Attack_Boost_III,build3,params1))
-
-print(calcefa.compute_total_raw(Abominable_Great_Sword_Affinity_Boost_II,build2,params1))
-
-print(calcefa.compute_total_raw(Tigrex_Great_Sword_Attack_Boost_III,build2,params1))
-
+# Best weapon
+print(calcefa.compute_total_efa(Dark_of_Night_Attack_Boost_III,build1,params1))
+print(calcefa.compute_total_efa(Dark_of_Night_Attack_Boost_III,build3,params1))
+# 3rd best + ice
 print(calcefa.compute_total_efa(Abominable_Great_Sword_Affinity_Boost_II,build2,params1))
 
-print(calcefa.compute_total_raw(Dark_of_Night_Attack_Boost_III,build3,params1))
+print(calcefa.compute_total_efa(Tigrex_Great_Sword_Attack_Boost_III,build3,params1))

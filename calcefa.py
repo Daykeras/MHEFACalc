@@ -17,7 +17,8 @@ def compute_display_raw(
     (power_sheathe_uptime * power_sheathe_raw[0] + 1) +
     atk_boost_skill[atk_boost_lvl][0] +
     charm_talon[has_charm_talon] +
-    attack_buffs[has_attack_buffs])
+    attack_buffs[has_attack_buffs] + 
+    .1)
   )
   
   return display_raw                    
